@@ -1,0 +1,12 @@
+A - Attractor
+R - Repeller
+B - Boulder
+Left mouse button - Asteroid
+
+Right mouse button - Delete entity
+
+Mouse wheel - Change gravity
+C - Constrain entities within canvas
+
+P - Pause
+H - Hide help

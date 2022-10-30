@@ -1,0 +1,16 @@
+Red Attractor:
+Exudes positive gravitational force - will attract asteroids.
+Asteroids can fall into an attractor. A 'black hole'.
+
+Blue Repeller:
+Exudes negative gravitational force - repels asteroids.
+Will split astreoids fallen into attractors. A 'white hole'.
+
+Gray Boulder:
+Obstacle. Asteroids will bounce off a boulder, losing velocity.
+
+Asteroid:
+The only moving entity. 
+When collided with another asteroid, and if there's
+a significant difference in sizes, the bigger asteroid 
+will 'consume' the other one, growing in size.
