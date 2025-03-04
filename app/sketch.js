@@ -15,9 +15,12 @@ let walkers = [];
 document.oncontextmenu = () => {
   return false;
 }
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+}
 
 function setup() {
-  createCanvas(1200, 800);
+  createCanvas(windowWidth, windowHeight);
   info = loadStrings('./info.txt');
   entityInfo = loadStrings('./entityInfo.txt');
 
@@ -237,8 +240,15 @@ function keyTyped(){
     showHelp ? showHelp = false : showHelp = true;
   }
 
-  if(key === "f" || key === "F"){
+  if (key === "f" || key === "F") {
     let fs = fullscreen();
     fullscreen(!fs);
+    setTimeout(() => {
+      if (fullscreen()) {
+        resizeCanvas(windowWidth, windowHeight);
+      } else {
+        resizeCanvas(1200, 800);
+      }
+    }, 100); // Slight delay to allow fullscreen transition
   }
 }
