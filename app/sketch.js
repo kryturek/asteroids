@@ -212,9 +212,9 @@ function mouseClicked(){
 
 function mouseWheel(ev){
   if(ev.delta>0){
-    G+=0.1;
+    G+=0.01;
   }else if(ev.delta<0){
-    G-=0.1;
+    G-=0.01;
   }
 }
 
@@ -244,11 +244,7 @@ function keyTyped(){
     let fs = fullscreen();
     fullscreen(!fs);
     setTimeout(() => {
-      if (fullscreen()) {
-        resizeCanvas(windowWidth, windowHeight);
-      } else {
-        resizeCanvas(1200, 800);
-      }
+      resizeCanvas(windowWidth, windowHeight);
     }, 100); // Slight delay to allow fullscreen transition
   }
 }
