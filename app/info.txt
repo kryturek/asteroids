@@ -3,7 +3,7 @@ R - Repeller
 B - Boulder
 Left mouse button - Asteroid
 
-Right mouse button - Delete entity
+Right mouse button / Backspace - Delete entity
 
 Mouse wheel - Change gravity
 C - Constrain entities within canvas

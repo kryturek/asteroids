@@ -11,7 +11,6 @@ let walls = false;
 let showHelp = false;
 let pause = false;
 let walkers = [];
-let fullscreen = false;
 
 document.oncontextmenu = () => {
   return false;
@@ -71,12 +70,10 @@ function draw() {
     element.move();
     element.show();
 
-    if(mouseIsPressed){
-      if(mouseButton=== RIGHT){
-        if(checkMouseCollision(element)){
-          let index = movers.indexOf(element);
-          movers.splice(index, 1);
-        }
+    if ((mouseIsPressed && mouseButton === RIGHT) || keyIsDown(BACKSPACE)) {
+      if (checkMouseCollision(element)) {
+        let index = movers.indexOf(element);
+        movers.splice(index, 1);
       }
     }
 
@@ -160,36 +157,30 @@ function draw() {
 
   attractors.forEach(element => {
     element.show();
-    if(mouseIsPressed){
-      if(mouseButton=== RIGHT){
-        if(checkMouseCollision(element)){
-          let index = attractors.indexOf(element);
-          attractors.splice(index, 1);
-        }
+    if ((mouseIsPressed && mouseButton === RIGHT) || keyIsDown(BACKSPACE)) {
+      if (checkMouseCollision(element)) {
+        let index = attractors.indexOf(element);
+        attractors.splice(index, 1);
       }
     }
   })
 
   repellers.forEach(element => {
     element.show();
-    if(mouseIsPressed){
-      if(mouseButton=== RIGHT){
-        if(checkMouseCollision(element)){
-          let index = repellers.indexOf(element);
-          repellers.splice(index, 1);
-        }
+    if ((mouseIsPressed && mouseButton === RIGHT) || keyIsDown(BACKSPACE)) {
+      if (checkMouseCollision(element)) {
+        let index = repellers.indexOf(element);
+        repellers.splice(index, 1);
       }
     }
   })
 
   boulders.forEach(element => {
     element.show();
-    if(mouseIsPressed){
-      if(mouseButton=== RIGHT){
-        if(checkMouseCollision(element)){
-          let index = boulders.indexOf(element);
-          boulders.splice(index, 1);
-        }
+    if ((mouseIsPressed && mouseButton === RIGHT) || keyIsDown(BACKSPACE)) {
+      if (checkMouseCollision(element)) {
+        let index = boulders.indexOf(element);
+        boulders.splice(index, 1);
       }
     }
   })
@@ -225,27 +216,28 @@ function mouseWheel(ev){
 }
 
 function keyTyped(){
-  if(key === "a"){
+  if(key === "a" || key === "A"){
     attractors.push(new Attractor(mouseX, mouseY, random(200, 600)));
   }
-  if(key === "r"){
+  if(key === "r" || key === "R"){
     repellers.push(new Repeller(mouseX, mouseY, random(200, 600)));
   }
-  if(key === "b"){
+  if(key === "b" || key === "B"){
     boulders.push(new Boulder(mouseX, mouseY, random(1000, 3000)));
   }
-  if(key === "c"){
+  if(key === "c" || key === "C"){
     walls ? walls=false : walls=true;
   }
-  if(key === "p" && isLooping()){
+  if((key === "p" || key === "P") && isLooping()){
     noLoop();
   } else if (isLooping()==false){
     loop();
   }
-  if(key === "h"){
+  if(key === "h" || key === "H"){
     showHelp ? showHelp = false : showHelp = true;
   }
-  if(key === "f"){
+
+  if(key === "f" || key === "F"){
     let fs = fullscreen();
     fullscreen(!fs);
   }
