@@ -104,7 +104,7 @@ function draw() {
       if(checkCollision(element, attractor)){
         attractor.suckIn();
         let index = movers.indexOf(element);
-        let newMass = pow(element.r, 2) / 2;
+        let newMass = pow(element.r, 2) / 2 > 1000 ? 1000 : pow(element.r, 2) / 2;
         movers.splice(index, 1);
         if(repellers.length > 0){
           let randomRepellerIndex = floor(random(repellers.length));
@@ -162,7 +162,7 @@ function draw() {
           let radiusAvg = element.r + other.r;
           
           if(radiusDiff/radiusAvg > EQUALITY_COEFFICIENT){
-            let newRadius = sqrt(pow(element.r, 2) + pow(other.r, 2));
+            let newRadius = sqrt(pow(element.r, 2) + pow(other.r, 2)) > 25 ? 25 : sqrt(pow(element.r, 2) + pow(other.r, 2));
 
             //ternary logic line
             element.r > other.r ? element.r = newRadius : other.r = newRadius;
@@ -237,12 +237,17 @@ function mouseWheel(ev){
   }
 }
 
-function keyTyped(){
-  if(key === "a" || key === "A"){
-    attractors.push(new Attractor(mouseX, mouseY, random(200, 600)));
+function keyTyped(event){
+  if (key === "a" || key === "A") {
+    if (event.shiftKey) {
+      attractors.push(new Attractor(mouseX, mouseY, random(40, 50)));
+    } else {
+      attractors.push(new Attractor(mouseX, mouseY, random(400, 500)));
+    }
   }
+
   if(key === "r" || key === "R"){
-    repellers.push(new Repeller(mouseX, mouseY, random(200, 600)));
+    repellers.push(new Repeller(mouseX, mouseY, random(400, 500)));
   }
   if(key === "b" || key === "B"){
     boulders.push(new Boulder(mouseX, mouseY, random(1500, 3000), random(boulderShade, boulderShade+boulderShadeIncrement)));

@@ -37,17 +37,24 @@ class Repeller{
         }
     }
 
-    spitOut() {
-        let interval = setInterval(() => {
-            if(this.ember < 10){
-                this.ember++;
-            } else {
-                do {
-                    this.ember--;
-                } while (this.ember > 1);
-                clearInterval(interval);
-            }
 
-        }, 12);
+
+
+    spitOut() {
+        let phase = 'growing';
+        let interval = setInterval(() => {
+            if(phase === 'growing'){
+                this.ember++;
+                if(this.ember >= 11){
+                    phase = 'shrinking';
+                }
+            } else if(phase === 'shrinking'){
+                this.ember--;
+                if(this.ember <= 1){
+                    this.ember = 1;
+                    clearInterval(interval);
+                }
+            }
+        }, 67);
     }
 }

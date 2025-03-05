@@ -39,7 +39,7 @@ class Attractor{
 
     suckIn(){
         let interval = setInterval(() => {
-            if(this.green > 20){
+            if(this.green > 0){
                 this.red-=3;
                 this.green-=3;
                 this.blue-=3;
@@ -49,7 +49,7 @@ class Attractor{
                 this.green = 60;
                 this.blue = 20;
             }
-        }, 4);
+        }, 17);
     }
 
     // suckIn(){
