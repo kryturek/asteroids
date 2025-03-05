@@ -131,11 +131,26 @@ function draw() {
     })
 
     boulders.forEach(boulder => {
-      if(checkCollision(element, boulder)){
-        element.pos.set(element.prevPos);
-        element.vel.mult(-0.5);
+      if (checkCollision(element, boulder)) {
+        // Calculate the collision normal vector from the boulder's center to the mover
+        let collisionNormal = p5.Vector.sub(element.pos, boulder.pos);
+        collisionNormal.normalize();
+        
+        // Reflect the mover's velocity about the collision normal
+        let dotProduct = element.vel.dot(collisionNormal);
+        element.vel = p5.Vector.sub(element.vel, p5.Vector.mult(collisionNormal, 2 * dotProduct));
+        
+        // Apply damping to simulate energy loss on collision
+        element.vel.mult(0.5);
+        
+        // Reposition the mover so it doesn't remain overlapping the boulder
+        let distance = p5.Vector.sub(element.pos, boulder.pos).mag();
+        let overlap = (element.r + boulder.r) - distance;
+        if (overlap > 0) {
+          element.pos.add(p5.Vector.mult(collisionNormal, overlap));
+        }
       }
-    })
+    });
     movers.forEach(other => {
       if(element!==other){
         if(checkCollision(element, other)){
