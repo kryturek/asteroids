@@ -1,6 +1,9 @@
 A - Attractor
 R - Repeller
 B - Boulder
+
+Hold Shift for small Attractors, Repellers, and Boulders
+
 Left mouse button - Asteroid
 
 Right mouse button / Backspace - Delete entity

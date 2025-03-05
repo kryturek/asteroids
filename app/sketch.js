@@ -26,15 +26,19 @@ function setup() {
   info = loadStrings('./info.txt');
   entityInfo = loadStrings('./entityInfo.txt');
 
+  attractors.push(new Attractor(width/2, height/2, 500));
+  repellers.push(new Repeller(width/1.1, height/4, 50));
+  boulders.push(new Boulder(width/1.3, height/3.3, 1500, random(boulderShade, boulderShade+boulderShadeIncrement)));
 
-  attractors.push(new Attractor(width*0.15, height*0.34, 500));
-  repellers.push(new Repeller(width*0.85, height*0.65, 500));
+  // attractors.push(new Attractor(width*0.15, height*0.34, 500));
+  // attractors.push(new Attractor(width/5+width*random(0.01, 0.2), height/2+height/3, 50));
+  // repellers.push(new Repeller(width*0.85, height*0.65, 500));
   movers.push(new NewMover(100, 100, 4));
   for(let i=0; i<8; i++){
-    movers.push(new NewMover(random(width/2), random(height/2), random(4, 150)));
+    movers.push(new NewMover(random(width), random(height), random(4, 100)));
   }
   for(let i=0; i<5; i++){
-    boulders.push(new Boulder(random(width/2)+width/4, random(height), random(1500, 3000), random(boulderShade, boulderShade+boulderShadeIncrement)));
+    boulders.push(new Boulder(random(width/2)+width/4, random(height), random(150, 3000), random(boulderShade, boulderShade+boulderShadeIncrement)));
   }
   for(let i=0; i<100; i++){
     walkers.push(new Walker(random(width), random(height)));
@@ -225,8 +229,9 @@ function checkMouseCollision(element){
   }
 }
 
+
 function mouseClicked(){
-  movers.push(new NewMover(mouseX, mouseY, random(5, 30)));
+  movers.push(new NewMover(mouseX, mouseY, random(5, 20)));
 }
 
 function mouseWheel(ev){
@@ -246,12 +251,22 @@ function keyTyped(event){
     }
   }
 
-  if(key === "r" || key === "R"){
-    repellers.push(new Repeller(mouseX, mouseY, random(400, 500)));
+  if (key === "r" || key === "R") {
+    if (event.shiftKey) {
+      repellers.push(new Repeller(mouseX, mouseY, random(40, 50)));
+    } else {
+      repellers.push(new Repeller(mouseX, mouseY, random(400, 500)));
+    }
   }
-  if(key === "b" || key === "B"){
-    boulders.push(new Boulder(mouseX, mouseY, random(1500, 3000), random(boulderShade, boulderShade+boulderShadeIncrement)));
+
+  if (key === "b" || key === "B") {
+    if (event.shiftKey) {
+      boulders.push(new Boulder(mouseX, mouseY, random(150, 300), random(boulderShade, boulderShade + boulderShadeIncrement)));
+    } else {
+      boulders.push(new Boulder(mouseX, mouseY, random(1500, 3000), random(boulderShade, boulderShade + boulderShadeIncrement)));
+    }
   }
+
   if(key === "c" || key === "C"){
     walls ? walls=false : walls=true;
   }
