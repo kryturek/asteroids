@@ -20,7 +20,7 @@ class NewMover{
 
     move(){
         this.prevPos = this.pos.copy();
-        if(this.path.length > 10){
+        if(this.path.length > this.r+3){
             this.path.shift();
             this.vel.add(this.acc);
         }
