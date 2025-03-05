@@ -5,8 +5,8 @@ class Attractor{
         this.r = sqrt(this.mass);
 
         this.red = 255;
-        this.green = 100;
-        this.blue = 100;
+        this.green = 60;
+        this.blue = 20;
     }
 
     attract(mover){
@@ -29,23 +29,38 @@ class Attractor{
         stroke(255, 60, 60, 80);
         fill(this.red, this.green, this.blue, 75);
         ellipse(this.pos.x, this.pos.y, this.r*2);
+
+        noStroke();
+        for(let r = this.r * 2; r <= this.r * 10; r += 5){
+            fill(this.red, this.green, this.blue, map(r, this.r * 2, this.r * 5, 15, 0));
+            ellipse(this.pos.x, this.pos.y, r * 2);
+        }
     }
 
     suckIn(){
-        do{
-            this.red--;
-            this.green--;
-            this.blue--;
-        } while (this.green > 100);
-
-        // do{
-        //     this.red += 10;
-        //     this.green += 3;
-        //     this.blue += 3;
-        // } while (this.red < 250);
-
-        // this.red = 255;
-        // this.green = 100;
-        // this.blue = 100;
+        let interval = setInterval(() => {
+            if(this.green > 20){
+                this.red-=3;
+                this.green-=3;
+                this.blue-=3;
+            } else {
+                clearInterval(interval);
+                this.red = 255;
+                this.green = 60;
+                this.blue = 20;
+            }
+        }, 4);
     }
+
+    // suckIn(){
+    //     do{
+    //         this.red--;
+    //         this.green--;
+    //         this.blue--;
+    //     } while (this.green > 0);
+
+    //     this.red = 255;
+    //     this.green = 100;
+    //     this.blue = 100;
+    // }
 }
