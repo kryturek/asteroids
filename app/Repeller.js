@@ -3,6 +3,12 @@ class Repeller{
         this.pos = createVector(x, y);
         this.mass = m;
         this.r = sqrt(this.mass);
+
+        this.red = 100;
+        this.green = 100;
+        this.blue = 255;
+
+        this.ember = 1;
     }
 
     repel(mover){
@@ -23,5 +29,25 @@ class Repeller{
         stroke(100, 100, 255, 120);
         fill(100, 100, 255, 75);
         ellipse(this.pos.x, this.pos.y, this.r*2);
+
+        noStroke();
+        for(let r = this.r * 2; r <= this.r * 10; r += 5){
+            fill(this.red, this.green, this.blue, map(r, this.r * 2, this.r * 5, 10+this.ember/2, this.ember/2));
+            ellipse(this.pos.x, this.pos.y, r * 2);
+        }
+    }
+
+    spitOut() {
+        let interval = setInterval(() => {
+            if(this.ember < 10){
+                this.ember++;
+            } else {
+                do {
+                    this.ember--;
+                } while (this.ember > 1);
+                clearInterval(interval);
+            }
+
+        }, 12);
     }
 }
