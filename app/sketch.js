@@ -11,6 +11,8 @@ let walls = false;
 let showHelp = false;
 let pause = false;
 let walkers = [];
+let boulderShade = 35;
+let boulderShadeIncrement = 75;
 
 document.oncontextmenu = () => {
   return false;
@@ -32,7 +34,7 @@ function setup() {
     movers.push(new NewMover(random(width/2), random(height/2), random(4, 150)));
   }
   for(let i=0; i<5; i++){
-    boulders.push(new Boulder(random(width/2)+width/4, random(height), random(1500, 3000)));
+    boulders.push(new Boulder(random(width/2)+width/4, random(height), random(1500, 3000), random(boulderShade, boulderShade+boulderShadeIncrement)));
   }
   for(let i=0; i<100; i++){
     walkers.push(new Walker(random(width), random(height)));
@@ -100,11 +102,13 @@ function draw() {
     attractors.forEach(attractor => {
       attractor.attract(element);
       if(checkCollision(element, attractor)){
+        attractor.suckIn();
         let index = movers.indexOf(element);
         let newMass = pow(element.r, 2) / 2;
         movers.splice(index, 1);
         if(repellers.length > 0){
           let randomRepellerIndex = floor(random(repellers.length));
+          repellers[randomRepellerIndex].spitOut();
           movers.push(
             new NewMover(
               repellers[randomRepellerIndex].pos.x+(random([-repellers[randomRepellerIndex].r, repellers[randomRepellerIndex].r])), 
@@ -241,7 +245,7 @@ function keyTyped(){
     repellers.push(new Repeller(mouseX, mouseY, random(200, 600)));
   }
   if(key === "b" || key === "B"){
-    boulders.push(new Boulder(mouseX, mouseY, random(1000, 3000)));
+    boulders.push(new Boulder(mouseX, mouseY, random(1500, 3000), random(boulderShade, boulderShade+boulderShadeIncrement)));
   }
   if(key === "c" || key === "C"){
     walls ? walls=false : walls=true;
