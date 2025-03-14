@@ -38,7 +38,7 @@ function setup() {
     movers.push(new NewMover(random(width), random(height), random(4, 100)));
   }
   for(let i=0; i<5; i++){
-    boulders.push(new Boulder(random(width/2)+width/4, random(height), random(150, 3000), random(boulderShade, boulderShade+boulderShadeIncrement)));
+    boulders.push(new Boulder(random(width/2)+width/4, random(height), random(15, 2000)));
   }
   for(let i=0; i<100; i++){
     walkers.push(new Walker(random(width), random(height)));
@@ -61,13 +61,14 @@ function draw() {
     text('H - Show help', 10, 20);
   }
   
+  push(); // Save current drawing style settings
   textSize(24);
   if(G<0){
     strokeWeight(3);
     stroke(255, 50, 0);
   }
   text("Gravitational force: " + floor(G*10), 15, height-30);
-  textSize(12);
+  pop();
   
   walkers.forEach(element => {
     element.show();
@@ -261,9 +262,9 @@ function keyTyped(event){
 
   if (key === "b" || key === "B") {
     if (event.shiftKey) {
-      boulders.push(new Boulder(mouseX, mouseY, random(150, 300), random(boulderShade, boulderShade + boulderShadeIncrement)));
+      boulders.push(new Boulder(mouseX, mouseY, random(150, 300)));
     } else {
-      boulders.push(new Boulder(mouseX, mouseY, random(1500, 3000), random(boulderShade, boulderShade + boulderShadeIncrement)));
+      boulders.push(new Boulder(mouseX, mouseY, random(1500, 3000)));
     }
   }
 
