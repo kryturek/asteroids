@@ -1,9 +1,9 @@
 class Boulder{
-    constructor(x, y, m, shade){
+    constructor(x, y, m){
         this.pos = createVector(x, y);
         this.mass = m;
         this.r = sqrt(this.mass);
-        this.shade = shade;
+        this.shade = random(35, 110);
     }
 
 
