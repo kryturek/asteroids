@@ -114,22 +114,18 @@ function draw() {
         if(repellers.length > 0){
           let randomRepellerIndex = floor(random(repellers.length));
           repellers[randomRepellerIndex].spitOut();
+          let angle = random(TWO_PI); // Random angle in radians
+          let x = repellers[randomRepellerIndex].pos.x + repellers[randomRepellerIndex].r * cos(angle);
+          let y = repellers[randomRepellerIndex].pos.y + repellers[randomRepellerIndex].r * sin(angle);
           movers.push(
-            new NewMover(
-              repellers[randomRepellerIndex].pos.x+(random([-repellers[randomRepellerIndex].r, repellers[randomRepellerIndex].r])), 
-              repellers[randomRepellerIndex].pos.y+(random([-repellers[randomRepellerIndex].r, repellers[randomRepellerIndex].r])), 
-              newMass,
-              true
-            )
+            new NewMover(x, y, newMass, true)
           );
-          if(newMass>1){
+          if (newMass > 1) {
+            angle = random(TWO_PI); // New random angle for the second mover
+            x = repellers[randomRepellerIndex].pos.x + repellers[randomRepellerIndex].r * cos(angle);
+            y = repellers[randomRepellerIndex].pos.y + repellers[randomRepellerIndex].r * sin(angle);
             movers.push(
-              new NewMover(
-                repellers[randomRepellerIndex].pos.x+(random([-repellers[randomRepellerIndex].r, repellers[randomRepellerIndex].r])), 
-                repellers[randomRepellerIndex].pos.y+(random([-repellers[randomRepellerIndex].r, repellers[randomRepellerIndex].r])), 
-                newMass,
-                true
-              )
+              new NewMover(x, y, newMass, true)
             );
           }
         }
